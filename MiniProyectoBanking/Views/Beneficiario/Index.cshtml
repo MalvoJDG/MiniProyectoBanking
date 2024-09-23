@@ -1,0 +1,56 @@
+﻿@model List<MiniProyectoBanking.Core.Application.ViewModels.Beneficiarios.BeneficiarioViewModel>
+
+@{
+    ViewData["Title"] = "Beneficiarios";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="col-4 pb-2">
+            <a asp-controller="Beneficiario" asp-action="SaveBeneficiario" asp-route-clienteId="@ViewBag.ClienteId" class="btn btn-success">Crear nuevo Beneficiario</a>
+        </div>
+
+        <h3>Lista de Beneficiarios</h3>
+
+        @if (Model != null && Model.Count > 0)
+        {
+            <div class="row">
+                @foreach (var beneficiario in Model)
+                {
+                    <div class="col-md-12 mb-3">
+                        <div class="card shadow-sm">
+                            <div class="card-body d-flex align-items-center">
+                                <div>
+                                    <h6>Nombre completo:</h6>
+                                    <h4>@beneficiario.Nombre @beneficiario.Apellido</h4>
+                                    <p><strong>Número de Cuenta:</strong> @beneficiario.NumeroCuenta</p>
+                                    <div class="d-flex">
+                                        <form method="post" asp-controller="Beneficiario" asp-action="Delete">
+                                            <input type="hidden" name="id" value="@beneficiario.Id" />
+                                            <button type="submit" class="btn btn-danger mx-2">Eliminar</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p>No hay beneficiarios registrados.</p>
+        }
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

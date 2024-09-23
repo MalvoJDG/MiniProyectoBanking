@@ -1,0 +1,47 @@
+﻿@using MiniProyectoBanking.Core.Application.ViewModels.Beneficiarios
+@model SaveBeneficiarioViewModel
+
+@{
+    ViewData["Title"] = "Beneficiarios";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        @if (TempData["ModelErrors"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <ul>
+                    @foreach (var error in (List<string>)TempData["ModelErrors"])
+                    {
+                        <li>@error</li>
+                    }
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        <div class="mb-4">
+            <h2>Agregar nuevo beneficiario</h2>
+            <form asp-action="SaveBeneficiario" asp-controller="Beneficiario" method="post">
+                <div class="form-group">
+                    <label asp-for="NumeroCuenta">Número de Cuenta</label>
+                    <input type="text" class="form-control" asp-for="NumeroCuenta" name="NumeroCuenta" required />
+                </div>
+                <input type="hidden" asp-for="Nombre" name="Nombre" />
+                <input type="hidden" asp-for="Apellido" name="Apellido" />
+                <input type="hidden" asp-for="ClienteId" name="ClienteId" />
+                <button type="submit" class="btn btn-success">Agregar Beneficiario</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
